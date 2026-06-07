@@ -50,69 +50,55 @@
   }
   .nav-links { display: flex; gap: 40px; list-style: none; }
 
-  @media (max-width: 768px) { .nav-links { display: none; } }
 
-  /* ── Hamburger button ── */
-  .menu-btn {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    width: 40px; height: 40px; cursor: pointer; z-index: 102;
-    background: none; border: none; padding: 0;
+  /* ── Dropdown menu system ── */
+  .nav-item {
+    position: relative;
+    padding: 8px 0;
   }
-  .menu-btn .line {
-    display: block; width: 22px; height: 1.5px;
-    background: var(--text-bright);
-    transition: transform 0.4s cubic-bezier(0.3,0.85,0.3,1),
-                opacity 0.25s ease;
-    transform-origin: center;
+  .nav-item > a {
+    text-decoration: none; color: var(--text-dim); font-size: 12px;
+    font-weight: 380; letter-spacing: 0.06em;
+    transition: color 0.3s;
+    padding: 8px 0;
+    cursor: pointer;
   }
-  .menu-btn .line + .line { margin-top: 6px; }
+  .nav-item:hover > a { color: var(--text-bright); }
 
-  .menu-btn.open .line:nth-child(1) {
-    transform: translateY(7.5px) rotate(45deg);
-  }
-  .menu-btn.open .line:nth-child(2) {
-    opacity: 0; transform: scaleX(0);
-  }
-  .menu-btn.open .line:nth-child(3) {
-    transform: translateY(-7.5px) rotate(-45deg);
-  }
-
-  /* ── Fullscreen menu overlay ── */
-  .menu-overlay {
-    position: fixed; inset: 0; z-index: 101;
-    background: rgba(6,6,6,0.94);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    display: flex; align-items: center; justify-content: center;
+  /* ── Dropdown panel ── */
+  .dropdown {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+    background: #141413; border: 1px solid var(--line);
+    padding: 12px 0; min-width: 140px;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.5s cubic-bezier(0.3,0.85,0.3,1);
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+    z-index: 99;
   }
-  .menu-overlay.open {
+  .nav-item:hover .dropdown {
     opacity: 1; pointer-events: auto;
+    transform: translateX(-50%) translateY(4px);
   }
+  .dropdown a {
+    display: block; padding: 8px 24px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    white-space: nowrap; letter-spacing: 0.03em;
+    transition: color 0.2s, background 0.2s;
+  }
+  .dropdown a:hover { color: var(--text-bright); background: rgba(255,255,255,0.03); }
 
-  .menu-overlay nav {
-    position: static; background: none; padding: 0;
-    display: flex; flex-direction: column; align-items: center; gap: 32px;
+  /* ── Dropdown indicator arrow ── */
+  .nav-item > a::after {
+    content: '';
+    display: inline-block; width: 4px; height: 4px;
+    border-right: 1px solid var(--text-dim);
+    border-bottom: 1px solid var(--text-dim);
+    transform: rotate(45deg) translateY(-1px);
+    margin-left: 6px; vertical-align: middle;
+    transition: border-color 0.3s, transform 0.25s;
   }
-  .menu-overlay a {
-    font-size: 40px; font-weight: 300; color: var(--text-dim);
-    text-decoration: none; letter-spacing: 0.02em;
-    opacity: 0; transform: translateY(24px);
-    transition: color 0.3s ease;
-  }
-  .menu-overlay a:hover { color: var(--text-bright); }
-
-  .menu-overlay.open a {
-    animation: menuItemIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
-  .menu-overlay.open a:nth-child(1) { animation-delay: 0.1s; }
-  .menu-overlay.open a:nth-child(2) { animation-delay: 0.18s; }
-  .menu-overlay.open a:nth-child(3) { animation-delay: 0.26s; }
-  .menu-overlay.open a:nth-child(4) { animation-delay: 0.34s; }
-
-  @keyframes menuItemIn {
-    to { opacity: 1; transform: translateY(0); }
+  .nav-item:hover > a::after {
+    border-color: var(--text-bright);
+    transform: rotate(-135deg) translateY(-2px);
   }
 
   /* ── Sections ── */
@@ -257,6 +243,10 @@
 
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
+    .nav-links { gap: 20px; }
+    .nav-item > a { font-size: 11px; }
+    .dropdown { min-width: 110px; }
+    .dropdown a { font-size: 11px; padding: 7px 16px; }
     .section { padding-left: 24px; padding-right: 24px; }
     .hero { padding-top: 140px; padding-bottom: 80px; }
     .hero h1 { font-size: 36px; }
@@ -273,31 +263,38 @@
     .plugins { padding-bottom: 100px; }
     .about { padding-bottom: 100px; }
     .contact { padding-bottom: 80px; }
-    .menu-overlay a { font-size: 28px; }
-    .menu-overlay nav { gap: 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Fullscreen menu overlay -->
-<div class="menu-overlay" id="menuOverlay">
-  <nav>
-    <a href="#work" data-nav>作品</a>
-    <a href="plugins.html" data-nav>插件</a>
-    <a href="#about" data-nav>关于</a>
-    <a href="#contact" data-nav>联系</a>
-  </nav>
-</div>
-
 <nav>
   <div class="nav-inner">
     <a href="#" class="nav-logo">麋鹿</a>
-    <button class="menu-btn" id="menuBtn" aria-label="菜单">
-      <span class="line"></span>
-      <span class="line"></span>
-      <span class="line"></span>
-    </button>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a>作品</a>
+        <div class="dropdown">
+          <a href="#work">精选作品</a>
+          <a href="plugins.html">人像</a>
+          <a href="plugins.html">风光</a>
+          <a href="plugins.html">城市</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a>插件</a>
+        <div class="dropdown">
+          <a href="download.html?p=quickaiedit" target="_blank">QuickAIEdit</a>
+          <a href="download.html?p=watermark" target="_blank">批量水印工具</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#about" style="cursor:pointer">关于</a>
+      </div>
+      <div class="nav-item">
+        <a href="#contact" style="cursor:pointer">联系</a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -380,40 +377,6 @@
 </footer>
 
 <script>
-  // ── Menu toggle ──
-  const menuBtn = document.getElementById('menuBtn');
-  const overlay = document.getElementById('menuOverlay');
-  const navLinks = document.querySelectorAll('[data-nav]');
-  let menuOpen = false;
-
-  function openMenu() {
-    menuOpen = true;
-    menuBtn.classList.add('open');
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMenu() {
-    menuOpen = false;
-    menuBtn.classList.remove('open');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  menuBtn.addEventListener('click', () => {
-    menuOpen ? closeMenu() : openMenu();
-  });
-
-  // Close menu when clicking a nav link
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => closeMenu());
-  });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuOpen) closeMenu();
-  });
-
   // ── Scroll reveal ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
