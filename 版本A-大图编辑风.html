@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麋鹿 — 摄影视界</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;400;600;700&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: #FAFAF8;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 24px 48px;
+    mix-blend-mode: difference;
+  }
+  .nav-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    max-width: 1600px; margin: 0 auto;
+  }
+  .nav-logo { font-size: 15px; font-weight: 300; color: #fff; text-decoration: none; letter-spacing: 0.08em; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 300; letter-spacing: 0.05em; }
+  .nav-links a:hover { color: #fff; }
+
+  .hero {
+    position: relative; width: 100%; height: 100vh; min-height: 700px;
+    display: flex; align-items: flex-end;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: url('https://picsum.photos/seed/hero-dark/1920/1200') center/cover;
+    filter: brightness(0.55);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; padding: 80px 80px 60px; color: #fff; }
+  .hero-content h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(56px, 8vw, 100px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .hero-content p { font-size: 18px; font-weight: 200; color: rgba(255,255,255,0.6); max-width: 420px; line-height: 1.8; }
+
+  section { padding: 100px 48px; max-width: 1600px; margin: 0 auto; }
+
+  .section-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #999; margin-bottom: 60px; }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 8px;
+  }
+  .work-item { position: relative; overflow: hidden; cursor: pointer; }
+  .work-item:nth-child(1) { grid-row: span 2; }
+  .work-item:nth-child(6) { grid-column: span 2; aspect-ratio: 16/9; }
+  .work-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .work-item:hover img { transform: scale(1.05); }
+  .work-item-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; background: linear-gradient(transparent, rgba(0,0,0,0.5)); color: #fff; opacity: 0; transition: opacity 0.3s; }
+  .work-item:hover .work-item-caption { opacity: 1; }
+  .work-item-caption span { font-size: 12px; letter-spacing: 0.05em; }
+
+  .plugins-row { display: flex; gap: 8px; }
+  .plugin-card {
+    flex: 1; background: #fff; padding: 48px 40px;
+    border: 1px solid #eee; transition: all 0.3s ease;
+  }
+  .plugin-card:hover { border-color: #1a1a1a; }
+  .plugin-badge { display: inline-block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; border: 1px solid #ddd; }
+  .plugin-card h3 { font-family: 'Noto Serif SC', serif; font-size: 28px; font-weight: 600; margin-bottom: 12px; }
+  .plugin-card p { font-size: 14px; color: #888; line-height: 1.7; margin-bottom: 28px; }
+  .plugin-card a {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #1a1a1a; text-decoration: none;
+    border-bottom: 1px solid #1a1a1a; padding-bottom: 4px;
+    transition: all 0.2s;
+  }
+  .plugin-card a:hover { gap: 16px; }
+
+  .about-block { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+  .about-block h2 { font-family: 'Noto Serif SC', serif; font-size: 48px; font-weight: 600; line-height: 1.2; }
+  .about-text { font-size: 15px; color: #666; line-height: 2; }
+  .about-text p + p { margin-top: 20px; }
+
+  .contact-line { display: flex; gap: 48px; padding-top: 32px; border-top: 1px solid #eee; }
+  .contact-line a { font-size: 14px; color: #888; text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .contact-line a:hover { color: #1a1a1a; }
+
+  footer { padding: 40px 48px; border-top: 1px solid #eee; display: flex; justify-content: space-between; font-size: 12px; color: #bbb; }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .hero-content { padding: 40px 24px 40px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item:nth-child(1) { grid-row: span 1; }
+    .work-item:nth-child(6) { grid-column: span 1; }
+    .plugins-row { flex-direction: column; }
+    .about-block { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">麋鹿</a>
+    <ul class="nav-links">
+      <li><a href="#work">作品</a></li>
+      <li><a href="plugins.html">插件</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>光落在<br>取景器里。</h1>
+    <p>独立摄影师，捕捉自然光下的瞬间。也写代码，做点趁手的小工具。</p>
+  </div>
+</header>
+
+<section id="work">
+  <div class="section-tag">精选作品</div>
+  <div class="work-grid">
+    <div class="work-item"><img src="https://picsum.photos/seed/a1/800/1000" alt=""><div class="work-item-caption"><span>人像·自然光</span></div></div>
+    <div class="work-item"><img src="https://picsum.photos/seed/a2/600/500" alt=""><div class="work-item-caption"><span>风光·山野</span></div></div>
+    <div class="work-item"><img src="https://picsum.photos/seed/a3/600/500" alt=""><div class="work-item-caption"><span>城市·街拍</span></div></div>
+    <div class="work-item"><img src="https://picsum.photos/seed/a4/600/500" alt=""><div class="work-item-caption"><span>旅行·记录</span></div></div>
+    <div class="work-item"><img src="https://picsum.photos/seed/a5/600/500" alt=""><div class="work-item-caption"><span>近摄·细节</span></div></div>
+    <div class="work-item"><img src="https://picsum.photos/seed/a6/1200/600" alt=""><div class="work-item-caption"><span>人像·黄昏</span></div></div>
+  </div>
+</section>
+
+<section id="plugins">
+  <div class="section-tag">工具与插件</div>
+  <div class="plugins-row">
+    <div class="plugin-card">
+      <span class="plugin-badge">PS 插件</span>
+      <h3>QuickAIEdit</h3>
+      <p>AI 选区生图插件，CEP/UXP 双版本，速创 API 集成。</p>
+      <a href="download.html?p=quickaiedit" target="_blank">下载 →</a>
+    </div>
+    <div class="plugin-card">
+      <span class="plugin-badge">独立工具</span>
+      <h3>批量水印工具</h3>
+      <p>拖拽批量添加水印，支持文字与图片，保持 EXIF。</p>
+      <a href="download.html?p=watermark" target="_blank">下载 →</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-block">
+    <h2>关于<br>麋鹿</h2>
+    <div class="about-text">
+      <p>独立摄影师，常驻杭州。专注于自然光人像与风光摄影。追求干净、克制、有呼吸感的画面。</p>
+      <p>同时也是一个工具开发者——因为自己在后期中不断遇到效率瓶颈，于是动手写了一些小插件。希望它们也能让你的工作流更顺手。</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-tag">联系</div>
+  <div class="contact-line">
+    <a href="mailto:hi@milulab.online">hi@milulab.online</a>
+    <a href="#">小红书</a>
+    <a href="#">Instagram</a>
+    <a href="#">Bilibili</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 麋鹿</span>
+  <span>milulab.online</span>
+</footer>
+
+</body>
+</html>

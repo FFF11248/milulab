@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>麋鹿</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500&family=Noto+Serif+SC:wght@200;300;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #FCFCFB;
+    --text: #111111;
+    --muted: #9C9B97;
+    --line: #EAE9E5;
+    --surface: #F3F2EE;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    padding: 20px 40px;
+    background: rgba(252,252,251,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: baseline; }
+  .nav-logo { font-size: 15px; font-weight: 400; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 300; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  section { max-width: 1100px; margin: 0 auto; padding: 60px 40px 100px; }
+
+  .hero { padding-top: 80px; padding-bottom: 60px; }
+  .hero h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(42px, 5vw, 56px); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; max-width: 500px; }
+  .hero .sub { font-size: 14px; color: var(--muted); margin-top: 20px; font-weight: 300; max-width: 340px; }
+
+  .section-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 400; margin-bottom: 40px; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+  }
+  .gallery img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: var(--bg); transition: opacity 0.3s; }
+  .gallery img:hover { opacity: 0.85; }
+
+  .divider { border: none; border-top: 1px solid var(--line); margin: 0 40px; max-width: 1100px; }
+
+  .plugins { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+  .p-item {
+    background: var(--bg); padding: 36px 40px 44px;
+    display: flex; flex-direction: column;
+  }
+  .p-item .badge { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; }
+  .p-item h3 { font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+  .p-item .desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+  .p-item a {
+    font-size: 13px; color: var(--text); text-decoration: none; font-weight: 400;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.2s;
+  }
+  .p-item a:hover { gap: 12px; }
+
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .about h2 { font-size: 14px; font-weight: 400; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .about .text { font-size: 14px; font-weight: 300; color: #555; line-height: 1.9; }
+  .about .text p + p { margin-top: 14px; }
+
+  .contact-items { display: flex; gap: 36px; flex-wrap: wrap; }
+  .contact-items a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .contact-items a:hover { color: var(--text); }
+
+  footer { padding: 30px 40px; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-weight: 300; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section { padding: 40px 20px 60px; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .plugins { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; gap: 24px; }
+    .hero h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">麋鹿</a>
+    <ul class="nav-links">
+      <li><a href="#work">作品</a></li>
+      <li><a href="plugins.html">插件</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>拍照是本能，<br>写代码是习惯。</h1>
+  <p class="sub">独立摄影师，也做点小工具。杭州。</p>
+</section>
+
+<section id="work">
+  <div class="section-label">精选作品</div>
+  <div class="gallery">
+    <img src="https://picsum.photos/seed/c1/600/600" alt="Natural light portrait" loading="lazy">
+    <img src="https://picsum.photos/seed/c2/600/600" alt="Mountain landscape" loading="lazy">
+    <img src="https://picsum.photos/seed/c3/600/600" alt="Street moment" loading="lazy">
+    <img src="https://picsum.photos/seed/c4/600/600" alt="City at dusk" loading="lazy">
+    <img src="https://picsum.photos/seed/c5/600/600" alt="Floral detail" loading="lazy">
+    <img src="https://picsum.photos/seed/c6/600/600" alt="Travel snapshot" loading="lazy">
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="plugins">
+  <div class="section-label">工具与插件</div>
+  <div class="plugins">
+    <div class="p-item">
+      <span class="badge">Photoshop 插件</span>
+      <h3>QuickAIEdit</h3>
+      <p class="desc">AI 选区生图，支持 CEP / UXP 双版本，速创 API 集成。</p>
+      <a href="download.html?p=quickaiedit" target="_blank">下载 →</a>
+    </div>
+    <div class="p-item">
+      <span class="badge">独立工具</span>
+      <h3>批量水印工具</h3>
+      <p class="desc">拖拽即可批量添加水印，保留 EXIF 信息。</p>
+      <a href="download.html?p=watermark" target="_blank">下载 →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="about">
+  <div class="about">
+    <h2>关于</h2>
+    <div class="text">
+      <p>麋鹿，独立摄影师，常驻杭州。拍摄自然光人像与风光，偏好干净克制的画面。</p>
+      <p>因为后期中不断遇到效率瓶颈，于是动手写插件。希望这些工具也能帮到你。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="contact">
+  <div class="section-label">联系</div>
+  <div class="contact-items">
+    <a href="mailto:hi@milulab.online">hi@milulab.online</a>
+    <a href="#">小红书</a>
+    <a href="#">Instagram</a>
+    <a href="#">Bilibili</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 麋鹿</span>
+  <span>milulab.online</span>
+</footer>
+
+</body>
+</html>
