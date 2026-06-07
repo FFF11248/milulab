@@ -3,452 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>麋鹿 — 摄影与工具</title>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@12..72,400;12..72,500;12..72,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>麋鹿 · 摄影</title>
 <style>
-  :root {
-    --bg: #FBFBFA;
-    --surface: #FFFFFF;
-    --text: #1a1a1a;
-    --text-secondary: #787774;
-    --text-tertiary: #9B9A97;
-    --border: #EAEAEA;
-    --border-light: rgba(0,0,0,0.06);
-    --accent: #2F3437;
-    --tag-red-bg: #FDEBEC;
-    --tag-red-text: #9F2F2D;
-    --tag-blue-bg: #E1F3FE;
-    --tag-blue-text: #1F6C9F;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
+  :root {
+    --bg: #0C0C0C;
+    --text: #C8C8C6;
+    --text-dim: #6B6B68;
+    --text-bright: #F5F5F3;
+    --line: #1F1F1E;
+    --line-light: #2A2A28;
+  }
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; font-weight: 350;
+    line-height: 1.6; letter-spacing: 0.01em;
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── Nav ── */
   nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 20px 0;
-    background: rgba(251, 251, 250, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 32px 56px;
   }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+  .nav-logo { font-size: 15px; font-weight: 450; color: var(--text-bright); text-decoration: none; letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 380; letter-spacing: 0.05em; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--text-bright); }
 
-  .nav-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .section { max-width: 1400px; margin: 0 auto; padding: 0 56px; }
 
-  .nav-logo {
-    font-family: 'Newsreader', serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--text);
-    letter-spacing: -0.01em;
-  }
+  .hero { padding-top: 200px; padding-bottom: 140px; }
+  .hero-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(44px, 6vw, 72px); font-weight: 300; line-height: 1.12; color: var(--text-bright); max-width: 680px; letter-spacing: -0.015em; }
+  .hero .line { font-size: 14px; color: var(--text-dim); margin-top: 32px; max-width: 380px; line-height: 1.8; }
 
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
+  .gallery { padding-top: 0; padding-bottom: 160px; }
+  .gallery-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 48px; }
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 360px 360px; gap: 6px; }
+  .g-item { position: relative; overflow: hidden; cursor: pointer; background: #141413; }
+  .g-item:nth-child(1) { grid-row: span 2; }
+  .g-item:nth-child(6) { grid-column: span 2; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72) saturate(0.85); transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1), filter 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+  .g-item:hover img { transform: scale(1.03); filter: brightness(0.9) saturate(1); }
+  .g-item-label { position: absolute; bottom: 20px; left: 20px; font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; z-index: 2; transition: color 0.3s; }
+  .g-item:hover .g-item-label { color: rgba(255,255,255,0.85); }
 
-  .nav-links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    transition: color 0.3s ease;
-  }
+  .plugins { padding-top: 0; padding-bottom: 160px; }
+  .plugins-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-dim); margin-bottom: 48px; }
+  .plugin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .p-card { background: #111110; padding: 48px 52px 56px; border: 1px solid var(--line); transition: border-color 0.3s, background 0.3s; }
+  .p-card:hover { border-color: var(--line-light); background: #141413; }
+  .p-tag { display: inline-block; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border: 1px solid #2A2A28; color: var(--text-dim); margin-bottom: 24px; }
+  .p-card h3 { font-size: 22px; font-weight: 380; color: var(--text-bright); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .p-card .desc { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 32px; max-width: 320px; }
+  .p-card a { display: inline-block; font-size: 12px; color: var(--text-bright); text-decoration: none; padding: 10px 24px; border: 1px solid #333; transition: all 0.25s; letter-spacing: 0.04em; }
+  .p-card a:hover { background: var(--text-bright); color: #0C0C0C; border-color: var(--text-bright); }
 
-  .nav-links a:hover { color: var(--text); }
+  .about { padding-top: 0; padding-bottom: 160px; }
+  .about-inner { display: grid; grid-template-columns: 1fr 1.5fr; gap: 120px; padding-top: 48px; border-top: 1px solid var(--line); }
+  .about-inner h2 { font-size: 13px; font-weight: 450; color: var(--text-bright); letter-spacing: 0.08em; }
+  .about-text { font-size: 14px; color: var(--text-dim); line-height: 2; }
+  .about-text p + p { margin-top: 18px; }
 
-  /* ── Hero ── */
-  .hero {
-    padding: 160px 40px 80px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  .contact-strip { padding-top: 0; padding-bottom: 120px; }
+  .contact-strip-inner { padding-top: 48px; border-top: 1px solid var(--line); display: flex; gap: 56px; }
+  .contact-strip-inner a { font-size: 13px; color: var(--text-dim); text-decoration: none; transition: color 0.2s; letter-spacing: 0.03em; }
+  .contact-strip-inner a:hover { color: var(--text-bright); }
 
-  .hero-eyebrow {
-    display: inline-block;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-tertiary);
-    margin-bottom: 24px;
-  }
+  footer { max-width: 1400px; margin: 0 auto; padding: 40px 56px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: #3D3D3B; letter-spacing: 0.04em; }
 
-  .hero h1 {
-    font-family: 'Newsreader', serif;
-    font-size: clamp(48px, 6vw, 80px);
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    max-width: 700px;
-  }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .hero-desc {
-    font-size: 17px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    max-width: 480px;
-    margin-top: 28px;
-  }
-
-  /* ── Gallery Grid ── */
-  .section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 80px 40px;
-  }
-
-  .section-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-tertiary);
-    margin-bottom: 40px;
-  }
-
-  .gallery {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 16px;
-  }
-
-  .gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .gallery-item:hover { transform: scale(0.985); }
-
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .gallery-item:hover img { transform: scale(1.03); }
-
-  .gallery-item:nth-child(1) { grid-row: span 2; }
-
-  /* ── Plugins ── */
-  .section-divider {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  .section-divider hr {
-    border: none;
-    border-top: 1px solid var(--border);
-  }
-
-  .plugins-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .plugin-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 32px 36px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .plugin-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 16px rgba(0,0,0,0.03);
-  }
-
-  .plugin-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    margin-bottom: 16px;
-  }
-
-  .tag-ps { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
-  .tag-tool { background: #EDF3EC; color: #346538; }
-
-  .plugin-card h3 {
-    font-family: 'Newsreader', serif;
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
-
-  .plugin-card p {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-
-  .plugin-dl {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    padding: 10px 20px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-
-  .plugin-dl:hover {
-    background: var(--text);
-    color: #fff;
-    border-color: var(--text);
-  }
-
-  .plugin-dl svg {
-    width: 14px;
-    height: 14px;
-    transition: transform 0.2s ease;
-  }
-
-  .plugin-dl:hover svg { transform: translateY(1px); }
-
-  /* ── About ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-
-  .about-grid h2 {
-    font-family: 'Newsreader', serif;
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-  }
-
-  .about-text {
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
-
-  .about-text p + p { margin-top: 16px; }
-
-  /* ── Contact ── */
-  .contact-strip {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .contact-item {
-    font-size: 15px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-
-  .contact-item:hover { color: var(--text); }
-
-  /* ── Footer ── */
-  footer {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer span {
-    font-size: 13px;
-    color: var(--text-tertiary);
-  }
-
-  /* ── Fade-in animation ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
-                transform 0.7s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .fade-in-delay-1 { transition-delay: 0.1s; }
-  .fade-in-delay-2 { transition-delay: 0.2s; }
-  .fade-in-delay-3 { transition-delay: 0.3s; }
-
-  /* ── Mobile ── */
   @media (max-width: 768px) {
-    .nav-inner { padding: 0 20px; }
+    nav { padding: 20px 24px; }
     .nav-links { gap: 20px; }
-
-    .hero { padding: 120px 20px 60px; }
-
-    .gallery {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .gallery-item:nth-child(1) { grid-row: span 1; grid-column: span 2; }
-
-    .plugins-grid { grid-template-columns: 1fr; }
-
-    .about-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .section { padding: 60px 20px; }
-    .section-divider { padding: 0 20px; }
-    footer { padding: 30px 20px; flex-direction: column; gap: 12px; }
+    .nav-links a { font-size: 12px; }
+    .section { padding-left: 24px; padding-right: 24px; }
+    .hero { padding-top: 140px; padding-bottom: 80px; }
+    .hero h1 { font-size: 36px; }
+    .gallery { padding-bottom: 100px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 240px 240px; }
+    .g-item:nth-child(1) { grid-row: span 1; }
+    .g-item:nth-child(6) { grid-column: span 1; }
+    .plugin-cards { grid-template-columns: 1fr; }
+    .p-card { padding: 32px 28px 40px; }
+    .about-inner { grid-template-columns: 1fr; gap: 28px; }
+    .plugins { padding-bottom: 100px; }
+    .about { padding-bottom: 100px; }
+    .contact-strip { padding-bottom: 80px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">麋鹿</a>
+    <a href="/" class="nav-logo">麋鹿</a>
     <ul class="nav-links">
-      <li><a href="#work">作品</a></li>
+      <li><a href="works.html">作品</a></li>
       <li><a href="plugins.html">插件</a></li>
       <li><a href="#about">关于</a></li>
-      <li><a href="#contact">联系</a></li>
+      <li><a href="contact.html">联系</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero fade-in">
-  <span class="hero-eyebrow">Photographer & Developer</span>
-  <h1>捕捉光影，<br>也编写工具。</h1>
-  <p class="hero-desc">
-    专注自然光人像与风光摄影。同时开发 Photoshop 插件，
-    让后期流程更高效。
-  </p>
+<header class="section hero reveal" id="top">
+  <div class="hero-eyebrow">photographer & developer</div>
+  <h1>在光线里<br>找秩序。</h1>
+  <p class="line">独立摄影师，拍人像也拍风光。偶尔写代码，<br>做几把趁手的小工具。</p>
+</header>
+
+<section class="section gallery reveal" id="work">
+  <div class="gallery-label">selected work · 精选</div>
+  <div class="gallery-grid">
+    <div class="g-item"><img src="https://picsum.photos/seed/portrait-main/900/1200" alt="人像" loading="lazy"><span class="g-item-label">自然光人像</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/landscape1d/700/500" alt="山野" loading="lazy"><span class="g-item-label">山野</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/street1d/700/500" alt="城市" loading="lazy"><span class="g-item-label">城市</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/travel1d/700/500" alt="旅行" loading="lazy"><span class="g-item-label">旅行随记</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/detail1d/700/500" alt="细节" loading="lazy"><span class="g-item-label">近摄</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/horizontal1d/1400/600" alt="黄昏" loading="lazy"><span class="g-item-label">黄昏</span></div>
+  </div>
 </section>
 
-<!-- Gallery -->
-<section class="section" id="work">
-  <div class="section-label fade-in">Selected Work / 精选作品</div>
-  <div class="gallery">
-    <div class="gallery-item fade-in">
-      <img src="https://picsum.photos/seed/portrait1/800/1000" alt="Portrait in natural light" loading="lazy">
+<section class="section plugins reveal" id="plugins">
+  <div class="plugins-label">tools · 工具与插件</div>
+  <div class="plugin-cards">
+    <div class="p-card">
+      <span class="p-tag">Photoshop</span>
+      <h3>QuickAIEdit</h3>
+      <p class="desc">AI 选区生图插件，CEP / UXP 双版本，速创 API 集成，一键生成高质量图像。</p>
+      <a href="download.html?p=quickaiedit" target="_blank">下载插件</a>
     </div>
-    <div class="gallery-item fade-in fade-in-delay-1">
-      <img src="https://picsum.photos/seed/landscape2/600/480" alt="Mountain landscape" loading="lazy">
-    </div>
-    <div class="gallery-item fade-in fade-in-delay-1">
-      <img src="https://picsum.photos/seed/street3/600/480" alt="Street photography" loading="lazy">
-    </div>
-    <div class="gallery-item fade-in fade-in-delay-2">
-      <img src="https://picsum.photos/seed/nature4/600/480" alt="Nature detail" loading="lazy">
-    </div>
-    <div class="gallery-item fade-in fade-in-delay-2">
-      <img src="https://picsum.photos/seed/portrait5/600/480" alt="Evening portrait" loading="lazy">
+    <div class="p-card">
+      <span class="p-tag">独立工具</span>
+      <h3>批量水印工具</h3>
+      <p class="desc">拖拽即可批量添加自定义水印，支持文字与图片水印，保留完整 EXIF 信息。</p>
+      <a href="download.html?p=watermark" target="_blank">下载工具</a>
     </div>
   </div>
 </section>
 
-<!-- Divider -->
-<div class="section-divider"><hr></div>
-
-<!-- About -->
-<section class="section" id="about">
-  <div class="about-grid">
-    <h2 class="fade-in">关于我</h2>
-    <div class="about-text fade-in fade-in-delay-1">
-      <p>
-        我叫麋鹿，一名独立摄影师，常驻杭州。主要拍摄自然光人像与风光，
-        偏好干净、克制的画面语言。
-      </p>
-      <p>
-        除了拍照，我也写代码。因为自己在后期中遇到各种效率瓶颈，
-        于是动手开发了一些 Photoshop 插件和独立工具。希望它们也能帮到你。
-      </p>
+<section class="section about reveal" id="about">
+  <div class="about-inner">
+    <h2>关于</h2>
+    <div class="about-text">
+      <p>麋鹿，独立摄影师，常驻杭州。<br>专注自然光人像与风光摄影。<br>画面偏好干净、克制、有呼吸感。</p>
+      <p>因为后期中不断遇到效率瓶颈，<br>于是自己动手写了一些小插件。<br>希望它们也能让你的工作流更顺手。</p>
     </div>
   </div>
 </section>
 
-<!-- Divider -->
-<div class="section-divider"><hr></div>
-
-<!-- Contact -->
-<section class="section" id="contact">
-  <div class="section-label fade-in">Contact / 联系方式</div>
-  <div class="contact-strip fade-in">
-    <a href="mailto:hi@linye.photo" class="contact-item">hi@linye.photo</a>
-    <a href="#" class="contact-item">小红书</a>
-    <a href="#" class="contact-item">Instagram</a>
-    <a href="#" class="contact-item">Bilibili</a>
+<section class="section contact-strip reveal" id="contact">
+  <div class="contact-strip-inner">
+    <a href="contact.html">查看联系方式 →</a>
   </div>
 </section>
 
-<!-- Footer -->
-<footer>
-  <span>&copy; 2026 麋鹿</span>
-  <span>All rights reserved.</span>
+<footer class="section">
+  <span>© 2026 麋鹿</span>
+  <span>milulab.online</span>
 </footer>
 
 <script>
-  // Scroll fade-in
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>

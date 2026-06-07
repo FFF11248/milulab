@@ -3,171 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>下载 — QuickAIEdit</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>下载 · 麋鹿</title>
 <style>
-  :root {
-    --bg: #FBFBFA;
-    --surface: #FFFFFF;
-    --text: #1a1a1a;
-    --text-secondary: #787774;
-    --border: #EAEAEA;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  :root {
+    --bg: #0C0C0C; --text: #C8C8C6; --text-dim: #6B6B68;
+    --text-bright: #F5F5F3; --line: #1F1F1E; --line-light: #2A2A28;
+  }
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased; font-weight: 350;
+    line-height: 1.6; letter-spacing: 0.01em;
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 80px 20px;
-  }
+  .container { max-width: 680px; margin: 0 auto; padding: 120px 20px 80px; }
 
-  .back-link {
-    display: inline-block;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    margin-bottom: 48px;
-    transition: color 0.2s;
-  }
+  .back-link { font-size: 13px; color: var(--text-dim); text-decoration: none; display: inline-block; margin-bottom: 48px; transition: color 0.2s; }
+  .back-link:hover { color: var(--text-bright); }
 
-  .back-link:hover { color: var(--text); }
+  h1 { font-size: 28px; font-weight: 380; color: var(--text-bright); letter-spacing: -0.02em; margin-bottom: 48px; }
 
-  h1 {
-    font-size: 28px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 48px;
-  }
-
-  /* ── Ad zone ── */
   .ad-banner {
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: 8px;
-    padding: 32px;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 13px;
-    margin-bottom: 40px;
+    background: #111110; border: 1px dashed var(--line);
+    padding: 32px; text-align: center; color: var(--text-dim);
+    font-size: 13px; margin-bottom: 40px;
   }
+  .ad-banner span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #4A4A47; margin-bottom: 8px; }
 
-  .ad-banner span {
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #9B9A97;
-    margin-bottom: 8px;
-  }
+  .dl-card { background: #111110; border: 1px solid var(--line); padding: 40px; text-align: center; }
+  .dl-card .file-icon { width: 48px; height: 48px; margin: 0 auto 20px; background: #1A1A18; display: flex; align-items: center; justify-content: center; }
+  .dl-card h2 { font-size: 20px; font-weight: 400; color: var(--text-bright); margin-bottom: 6px; }
+  .dl-card .version { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+  .dl-btn { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 14px; font-weight: 400; color: var(--bg); background: var(--text-bright); padding: 14px 32px; transition: all 0.2s; }
+  .dl-btn:hover { background: #fff; transform: translateY(-1px); }
+  .dl-meta { margin-top: 16px; font-size: 12px; color: var(--text-dim); }
 
-  /* ── Download card ── */
-  .dl-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 40px;
-    text-align: center;
-  }
-
-  .dl-card .file-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 20px;
-    background: #F7F6F3;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .dl-card h2 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
-
-  .dl-card .version {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-  }
-
-  .dl-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    background: #1a1a1a;
-    padding: 14px 32px;
-    border-radius: 6px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .dl-btn:hover {
-    background: #333;
-  }
-
-  .dl-btn:active {
-    transform: scale(0.98);
-  }
-
-  .dl-meta {
-    margin-top: 16px;
-    font-size: 12px;
-    color: var(--text-secondary);
-  }
-
-  /* ── Ad zone 2 ── */
-  .ad-sidebar {
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: 8px;
-    padding: 24px;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 13px;
-    margin-top: 40px;
-  }
-
-  .ad-sidebar span {
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #9B9A97;
-    margin-bottom: 8px;
-  }
+  .ad-sidebar { background: #111110; border: 1px dashed var(--line); padding: 24px; text-align: center; color: var(--text-dim); font-size: 13px; margin-top: 40px; }
+  .ad-sidebar span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #4A4A47; margin-bottom: 8px; }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <a href="index.html" class="back-link">&larr; 返回主页</a>
-
+  <a href="/" class="back-link">&larr; 返回主页</a>
   <h1>下载插件</h1>
 
-  <!-- 广告位 1 -->
   <div class="ad-banner">
     <span>Advertisement</span>
     此处放置 Google AdSense 或其他广告代码
   </div>
 
-  <!-- 下载卡片 -->
   <div class="dl-card" id="plugin-card">
     <div class="file-icon">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#787774" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6B6B68" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
       </svg>
     </div>
@@ -182,7 +75,6 @@
     <p class="dl-meta">文件大小: 约 12MB · 版本: 2.1.0</p>
   </div>
 
-  <!-- 广告位 2 -->
   <div class="ad-sidebar">
     <span>Advertisement</span>
     此处放置 Google AdSense 或其他广告代码
@@ -190,27 +82,13 @@
 </div>
 
 <script>
-  // 根据 URL 参数切换不同插件的下载信息
   const params = new URLSearchParams(window.location.search);
   const plugin = params.get('p');
-
   const plugins = {
-    quickaiedit: {
-      name: 'QuickAIEdit',
-      version: 'v2.1.0 · Photoshop CC 2020+',
-      link: '#',  // 替换为真实百度云链接
-      size: '12MB'
-    },
-    watermark: {
-      name: '批量水印工具',
-      version: 'v1.5.0 · Windows 10+',
-      link: '#',
-      size: '8MB'
-    }
+    quickaiedit: { name: 'QuickAIEdit', version: 'v2.1.0 · Photoshop CC 2020+', link: '#', size: '12MB' },
+    watermark: { name: '批量水印工具', version: 'v1.5.0 · Windows 10+', link: '#', size: '8MB' }
   };
-
   const info = plugins[plugin] || plugins.quickaiedit;
-
   document.getElementById('plugin-name').textContent = info.name;
   document.getElementById('plugin-version').textContent = info.version;
   document.getElementById('dl-link').href = info.link;

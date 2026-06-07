@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>插件 · 麋鹿</title>
+<title>联系方式 · 麋鹿</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -31,7 +31,7 @@
   .nav-links a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 380; letter-spacing: 0.05em; transition: color 0.3s; }
   .nav-links a:hover { color: var(--text-bright); }
 
-  .page { max-width: 1400px; margin: 0 auto; padding: 160px 56px 80px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 160px 56px 80px; }
 
   .back-link { font-size: 13px; color: var(--text-dim); text-decoration: none; display: inline-block; margin-bottom: 48px; transition: color 0.2s; }
   .back-link:hover { color: var(--text-bright); }
@@ -39,14 +39,21 @@
   h1 { font-size: clamp(40px, 5vw, 60px); font-weight: 300; color: var(--text-bright); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
   .sub { font-size: 14px; color: var(--text-dim); margin-bottom: 60px; }
 
-  .plugin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .p-card { background: #111110; padding: 48px 52px 56px; border: 1px solid var(--line); transition: border-color 0.3s, background 0.3s; }
-  .p-card:hover { border-color: var(--line-light); background: #141413; }
-  .p-tag { display: inline-block; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border: 1px solid #2A2A28; color: var(--text-dim); margin-bottom: 24px; }
-  .p-card h3 { font-size: 22px; font-weight: 380; color: var(--text-bright); margin-bottom: 10px; letter-spacing: -0.01em; }
-  .p-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 32px; max-width: 320px; }
-  .p-card a { display: inline-block; font-size: 12px; color: var(--text-bright); text-decoration: none; padding: 10px 24px; border: 1px solid #333; transition: all 0.25s; letter-spacing: 0.04em; }
-  .p-card a:hover { background: var(--text-bright); color: #0C0C0C; border-color: var(--text-bright); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .contact-card {
+    background: #111110; border: 1px solid var(--line);
+    padding: 40px; transition: border-color 0.3s, background 0.3s;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .contact-card:hover { border-color: var(--line-light); background: #141413; }
+  .contact-card .platform {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-dim); margin-bottom: 20px;
+    padding: 4px 12px; border: 1px solid #2A2A28; display: inline-block;
+  }
+  .contact-card img { width: 140px; height: 140px; object-fit: contain; margin-bottom: 16px; border-radius: 4px; }
+  .contact-card .label { font-size: 13px; color: var(--text-bright); font-weight: 380; }
+  .contact-card .hint { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
 
   footer { max-width: 1400px; margin: 0 auto; padding: 40px 56px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: #3D3D3B; }
 
@@ -58,8 +65,7 @@
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 12px; }
     .page { padding: 120px 24px 60px; }
-    .plugin-cards { grid-template-columns: 1fr; }
-    .p-card { padding: 32px 28px 40px; }
+    .contact-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -79,20 +85,35 @@
 
 <div class="page">
   <a href="/" class="back-link">&larr; 返回主页</a>
-  <h1 class="reveal">工具与插件</h1>
-  <p class="sub reveal">自己做的实用小工具，提升后期效率。</p>
-  <div class="plugin-cards reveal">
-    <div class="p-card">
-      <span class="p-tag">Photoshop 插件</span>
-      <h3>QuickAIEdit</h3>
-      <p>AI 选区生图插件，支持 CEP / UXP 双版本，速创 API 集成，一键生成高质量图像。</p>
-      <a href="download.html?p=quickaiedit" target="_blank">下载插件</a>
+  <h1 class="reveal">联系方式</h1>
+  <p class="sub reveal">扫描二维码或通过以下方式找到我</p>
+  <div class="contact-grid reveal">
+    <div class="contact-card">
+      <span class="platform">抖音</span>
+      <img src="抖音.png" alt="抖音二维码">
+      <span class="label">抖音扫码关注</span>
+      <span class="hint">打开抖音 App 扫码</span>
     </div>
-    <div class="p-card">
-      <span class="p-tag">独立工具</span>
-      <h3>批量水印工具</h3>
-      <p>拖拽即可批量添加自定义水印，支持文字与图片水印，保留完整 EXIF 信息。</p>
-      <a href="download.html?p=watermark" target="_blank">下载工具</a>
+    <div class="contact-card">
+      <span class="platform">Email</span>
+      <div style="padding: 40px 0;">
+        <span class="label" style="font-size: 16px;">hi@milulab.online</span>
+        <span class="hint">欢迎邮件联系</span>
+      </div>
+    </div>
+    <div class="contact-card">
+      <span class="platform">小红书</span>
+      <div style="padding: 40px 0;">
+        <span class="label" style="font-size: 16px;">@麋鹿</span>
+        <span class="hint">小红书搜索关注</span>
+      </div>
+    </div>
+    <div class="contact-card">
+      <span class="platform">Bilibili</span>
+      <div style="padding: 40px 0;">
+        <span class="label" style="font-size: 16px;">@麋鹿</span>
+        <span class="hint">B站搜索关注</span>
+      </div>
     </div>
   </div>
 </div>

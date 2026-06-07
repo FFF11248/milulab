@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>插件 · 麋鹿</title>
+<title>作品 · 麋鹿</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -39,14 +39,14 @@
   h1 { font-size: clamp(40px, 5vw, 60px); font-weight: 300; color: var(--text-bright); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
   .sub { font-size: 14px; color: var(--text-dim); margin-bottom: 60px; }
 
-  .plugin-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .p-card { background: #111110; padding: 48px 52px 56px; border: 1px solid var(--line); transition: border-color 0.3s, background 0.3s; }
-  .p-card:hover { border-color: var(--line-light); background: #141413; }
-  .p-tag { display: inline-block; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border: 1px solid #2A2A28; color: var(--text-dim); margin-bottom: 24px; }
-  .p-card h3 { font-size: 22px; font-weight: 380; color: var(--text-bright); margin-bottom: 10px; letter-spacing: -0.01em; }
-  .p-card p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 32px; max-width: 320px; }
-  .p-card a { display: inline-block; font-size: 12px; color: var(--text-bright); text-decoration: none; padding: 10px 24px; border: 1px solid #333; transition: all 0.25s; letter-spacing: 0.04em; }
-  .p-card a:hover { background: var(--text-bright); color: #0C0C0C; border-color: var(--text-bright); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .g-item { position: relative; overflow: hidden; cursor: pointer; background: #141413; aspect-ratio: 1; }
+  .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .g-item:nth-child(6) { grid-column: span 2; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72) saturate(0.85); transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1), filter 0.6s; }
+  .g-item:hover img { transform: scale(1.03); filter: brightness(0.9) saturate(1); }
+  .g-item-label { position: absolute; bottom: 16px; left: 16px; font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; z-index: 2; transition: color 0.3s; }
+  .g-item:hover .g-item-label { color: rgba(255,255,255,0.85); }
 
   footer { max-width: 1400px; margin: 0 auto; padding: 40px 56px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: #3D3D3B; }
 
@@ -58,8 +58,9 @@
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 12px; }
     .page { padding: 120px 24px 60px; }
-    .plugin-cards { grid-template-columns: 1fr; }
-    .p-card { padding: 32px 28px 40px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .g-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .g-item:nth-child(6) { grid-column: span 1; }
   }
 </style>
 </head>
@@ -79,21 +80,19 @@
 
 <div class="page">
   <a href="/" class="back-link">&larr; 返回主页</a>
-  <h1 class="reveal">工具与插件</h1>
-  <p class="sub reveal">自己做的实用小工具，提升后期效率。</p>
-  <div class="plugin-cards reveal">
-    <div class="p-card">
-      <span class="p-tag">Photoshop 插件</span>
-      <h3>QuickAIEdit</h3>
-      <p>AI 选区生图插件，支持 CEP / UXP 双版本，速创 API 集成，一键生成高质量图像。</p>
-      <a href="download.html?p=quickaiedit" target="_blank">下载插件</a>
-    </div>
-    <div class="p-card">
-      <span class="p-tag">独立工具</span>
-      <h3>批量水印工具</h3>
-      <p>拖拽即可批量添加自定义水印，支持文字与图片水印，保留完整 EXIF 信息。</p>
-      <a href="download.html?p=watermark" target="_blank">下载工具</a>
-    </div>
+  <h1 class="reveal">作品集</h1>
+  <p class="sub reveal">自然光人像 · 风光 · 城市 · 近摄</p>
+  <div class="gallery-grid reveal">
+    <div class="g-item"><img src="https://picsum.photos/seed/w1/800/800" loading="lazy"><span class="g-item-label">黄昏人像</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w2/600/600" loading="lazy"><span class="g-item-label">山野</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w3/600/600" loading="lazy"><span class="g-item-label">街拍</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w4/600/600" loading="lazy"><span class="g-item-label">细节</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w5/600/600" loading="lazy"><span class="g-item-label">森林</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w6/1200/600" loading="lazy"><span class="g-item-label">海岸线</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w7/600/600" loading="lazy"><span class="g-item-label">建筑</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w8/600/600" loading="lazy"><span class="g-item-label">花</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w9/600/600" loading="lazy"><span class="g-item-label">日出</span></div>
+    <div class="g-item"><img src="https://picsum.photos/seed/w10/600/600" loading="lazy"><span class="g-item-label">雨天</span></div>
   </div>
 </div>
 
@@ -105,7 +104,7 @@
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
