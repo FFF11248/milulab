@@ -49,7 +49,9 @@
   .g-item:nth-child(1) { grid-row: span 2; }
   .g-item:nth-child(6) { grid-column: span 2; }
   .g-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.72) saturate(0.85); transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1), filter 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+  .g-item img[src=""] { display: block; min-height: 100%; background: #1a1a18; }
   .g-item:hover img { transform: scale(1.03); filter: brightness(0.9) saturate(1); }
+  .g-item:hover img[src=""] { filter: brightness(1.2); }
   .g-item-label { position: absolute; bottom: 20px; left: 20px; font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; z-index: 2; transition: color 0.3s; }
   .g-item:hover .g-item-label { color: rgba(255,255,255,0.85); }
 
@@ -123,12 +125,12 @@
 <section class="section gallery reveal" id="work">
   <div class="gallery-label">selected work · 精选</div>
   <div class="gallery-grid">
-    <div class="g-item"><img src="https://picsum.photos/seed/portrait-main/900/1200" alt="人像" loading="lazy"><span class="g-item-label">自然光人像</span></div>
-    <div class="g-item"><img src="https://picsum.photos/seed/landscape1d/700/500" alt="山野" loading="lazy"><span class="g-item-label">山野</span></div>
-    <div class="g-item"><img src="https://picsum.photos/seed/street1d/700/500" alt="城市" loading="lazy"><span class="g-item-label">城市</span></div>
-    <div class="g-item"><img src="https://picsum.photos/seed/travel1d/700/500" alt="旅行" loading="lazy"><span class="g-item-label">旅行随记</span></div>
-    <div class="g-item"><img src="https://picsum.photos/seed/detail1d/700/500" alt="细节" loading="lazy"><span class="g-item-label">近摄</span></div>
-    <div class="g-item"><img src="https://picsum.photos/seed/horizontal1d/1400/600" alt="黄昏" loading="lazy"><span class="g-item-label">黄昏</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="人像" loading="lazy"><span class="g-item-label">自然光人像</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="山野" loading="lazy"><span class="g-item-label">山野</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="城市" loading="lazy"><span class="g-item-label">城市</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="旅行" loading="lazy"><span class="g-item-label">旅行随记</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="细节" loading="lazy"><span class="g-item-label">近摄</span></div>
+    <div class="g-item"><img src="" style="background:#1a1a18" alt="黄昏" loading="lazy"><span class="g-item-label">黄昏</span></div>
   </div>
 </section>
 
