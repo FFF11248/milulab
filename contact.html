@@ -37,68 +37,167 @@
   .back-link:hover { color: var(--text-bright); }
 
   h1 { font-size: clamp(40px, 5vw, 60px); font-weight: 300; color: var(--text-bright); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .sub { font-size: 14px; color: var(--text-dim); margin-bottom: 60px; }
+  .sub { font-size: 14px; color: var(--text-dim); margin-bottom: 12px; }
+  .sub-hint {
+    font-size: 11px; color: #4A4A47; margin-bottom: 48px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sub-hint .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #4A4A47;
+    animation: hintPulse 2s ease-in-out infinite;
+  }
+  @keyframes hintPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
 
+  /* ── Button list ── */
   .btn-list { display: flex; flex-direction: column; gap: 6px; }
+
   .contact-btn {
     display: flex; align-items: center; gap: 14px;
-    width: 100%; padding: 20px 28px;
+    width: 100%; padding: 22px 28px;
     background: #111110; border: 1px solid var(--line);
     color: var(--text-bright); font-size: 15px; font-weight: 380;
     cursor: pointer; letter-spacing: 0.04em;
-    transition: all 0.25s; text-align: left;
-    font-family: inherit;
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    text-align: left; font-family: inherit;
+    position: relative; overflow: hidden;
   }
-  .contact-btn:hover { border-color: var(--line-light); background: #141413; }
+  /* ── Subtle inner shimmer on hover ── */
+  .contact-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.015), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .contact-btn:hover::before { transform: translateX(100%); }
+
+  .contact-btn:hover {
+    border-color: #444;
+    background: #161614;
+    padding-left: 36px;
+  }
+  .contact-btn:active {
+    transform: scale(0.99);
+    transition: transform 0.1s ease;
+  }
+
+  /* ── Pulsing dot indicator ── */
+  .contact-btn .indicator {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--text-dim);
+    flex-shrink: 0;
+    animation: btnPulse 2.4s ease-in-out infinite;
+  }
+  .contact-btn:nth-child(1) .indicator { animation-delay: 0s; }
+  .contact-btn:nth-child(2) .indicator { animation-delay: 0.6s; }
+  .contact-btn:nth-child(3) .indicator { animation-delay: 1.2s; }
+  .contact-btn:nth-child(4) .indicator { animation-delay: 1.8s; }
+
+  @keyframes btnPulse {
+    0%, 100% { opacity: 0.3; box-shadow: 0 0 0 0 rgba(107,107,104,0.3); }
+    50% { opacity: 1; box-shadow: 0 0 0 6px rgba(107,107,104,0); }
+  }
+  .contact-btn:hover .indicator {
+    animation: none; opacity: 1;
+    background: var(--text-bright);
+  }
+
   .contact-btn .platform-badge {
     font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
-    padding: 4px 12px; border: 1px solid #2A2A28; color: var(--text-dim);
-    min-width: 80px; text-align: center;
+    padding: 5px 14px; border: 1px solid #2A2A28; color: var(--text-dim);
+    min-width: 82px; text-align: center; flex-shrink: 0;
+    transition: all 0.3s;
   }
-  .contact-btn .arrow {
-    margin-left: auto; font-size: 18px; color: var(--text-dim);
-    transition: transform 0.25s;
+  .contact-btn:hover .platform-badge {
+    border-color: #444; color: var(--text-bright);
   }
-  .contact-btn:hover .arrow { transform: translateX(3px); }
 
-  /* ── Modal / Lightbox ── */
+  .contact-btn .btn-label { flex: 1; }
+
+  .contact-btn .arrow {
+    font-size: 16px; color: var(--text-dim);
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+    flex-shrink: 0;
+  }
+  .contact-btn:hover .arrow {
+    transform: translateX(6px);
+    color: var(--text-bright);
+  }
+
+  /* ── Staggered entrance ── */
+  .btn-stagger {
+    opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+                transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-stagger.visible { opacity: 1; transform: translateX(0); }
+  .btn-stagger:nth-child(1) { transition-delay: 0.05s; }
+  .btn-stagger:nth-child(2) { transition-delay: 0.15s; }
+  .btn-stagger:nth-child(3) { transition-delay: 0.25s; }
+  .btn-stagger:nth-child(4) { transition-delay: 0.35s; }
+
+  /* ── Modal ── */
   .modal-overlay {
     position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease;
   }
   .modal-overlay.open { opacity: 1; pointer-events: auto; }
 
   .modal-box {
     background: #141413; border: 1px solid var(--line-light);
-    padding: 48px; max-width: 420px; width: 90%;
+    padding: 48px; max-width: 440px; width: 90%;
     text-align: center;
-    transform: translateY(16px);
-    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
   }
-  .modal-overlay.open .modal-box { transform: translateY(0); }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
 
   .modal-box .platform-label {
     font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--text-dim); margin-bottom: 24px;
-    padding: 4px 14px; border: 1px solid #2A2A28; display: inline-block;
+    color: var(--text-dim); margin-bottom: 28px;
+    padding: 5px 16px; border: 1px solid #2A2A28; display: inline-block;
   }
-  .modal-box img { max-width: 300px; width: 100%; height: auto; display: block; margin: 0 auto 20px; border-radius: 2px; }
+  .modal-box img {
+    max-width: 280px; width: 100%; height: auto;
+    display: block; margin: 0 auto 20px;
+    border-radius: 2px;
+    animation: imgReveal 0.5s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes imgReveal {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
   .modal-box .modal-text { font-size: 16px; color: var(--text-bright); margin-bottom: 6px; }
   .modal-box .modal-hint { font-size: 12px; color: var(--text-dim); }
   .modal-close {
-    margin-top: 28px; padding: 10px 32px;
+    margin-top: 32px; padding: 11px 36px;
     background: none; border: 1px solid #333; color: var(--text-dim);
     font-size: 13px; cursor: pointer; letter-spacing: 0.04em;
-    transition: all 0.2s; font-family: inherit;
+    transition: all 0.25s; font-family: inherit;
   }
-  .modal-close:hover { color: var(--text-bright); border-color: var(--text-bright); }
+  .modal-close:hover { color: var(--text-bright); border-color: var(--text-bright); background: rgba(255,255,255,0.03); }
 
-  footer { max-width: 1400px; margin: 0 auto; padding: 40px 56px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: #3D3D3B; }
+  /* ── Ripple on click ── */
+  .ripple {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    transform: scale(0);
+    animation: ripple 0.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes ripple {
+    to { transform: scale(4); opacity: 0; }
+  }
+
+  footer { max-width: 1400px; margin: 0 auto; padding: 40px 56px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: #3D3D3B; letter-spacing: 0.04em; }
 
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -108,6 +207,8 @@
     .nav-links { gap: 20px; }
     .nav-links a { font-size: 12px; }
     .page { padding: 120px 24px 60px; }
+    .contact-btn { padding: 16px 20px; font-size: 14px; }
+    .contact-btn:hover { padding-left: 24px; }
     .modal-box { padding: 32px 24px; }
   }
 </style>
@@ -129,27 +230,34 @@
 <div class="page">
   <a href="/" class="back-link">&larr; 返回主页</a>
   <h1 class="reveal">联系方式</h1>
-  <p class="sub reveal">点击下方按钮查看详情</p>
+  <p class="sub reveal">选择一个平台，点击查看详情</p>
+  <p class="sub-hint reveal">
+    <span class="dot"></span> 点击下方按钮
+  </p>
 
-  <div class="btn-list reveal">
-    <button class="contact-btn" data-platform="抖音" data-type="qr" data-img="抖音.png" data-text="打开抖音 App 扫码关注">
+  <div class="btn-list">
+    <button class="contact-btn btn-stagger" data-platform="抖音" data-type="qr" data-img="抖音.png" data-text="打开抖音 App 扫码关注">
+      <span class="indicator"></span>
       <span class="platform-badge">抖音</span>
-      抖音扫码关注
+      <span class="btn-label">抖音扫码关注</span>
       <span class="arrow">→</span>
     </button>
-    <button class="contact-btn" data-platform="Email" data-type="text" data-text="hi@milulab.online" data-hint="欢迎邮件联系">
+    <button class="contact-btn btn-stagger" data-platform="Email" data-type="text" data-text="hi@milulab.online" data-hint="欢迎邮件联系">
+      <span class="indicator"></span>
       <span class="platform-badge">Email</span>
-      hi@milulab.online
+      <span class="btn-label">hi@milulab.online</span>
       <span class="arrow">→</span>
     </button>
-    <button class="contact-btn" data-platform="小红书" data-type="text" data-text="@麋鹿" data-hint="小红书 App 搜索关注">
+    <button class="contact-btn btn-stagger" data-platform="小红书" data-type="text" data-text="@麋鹿" data-hint="小红书 App 搜索关注">
+      <span class="indicator"></span>
       <span class="platform-badge">小红书</span>
-      @麋鹿
+      <span class="btn-label">@麋鹿</span>
       <span class="arrow">→</span>
     </button>
-    <button class="contact-btn" data-platform="Bilibili" data-type="text" data-text="@麋鹿" data-hint="B站搜索关注">
+    <button class="contact-btn btn-stagger" data-platform="Bilibili" data-type="text" data-text="@麋鹿" data-hint="B站搜索关注">
+      <span class="indicator"></span>
       <span class="platform-badge">Bilibili</span>
-      @麋鹿
+      <span class="btn-label">@麋鹿</span>
       <span class="arrow">→</span>
     </button>
   </div>
@@ -172,6 +280,7 @@
 </footer>
 
 <script>
+  // ── Modal ──
   const modal = document.getElementById('modal');
   const modalPlatform = document.getElementById('modalPlatform');
   const modalImg = document.getElementById('modalImg');
@@ -179,7 +288,19 @@
   const modalHint = document.getElementById('modalHint');
 
   document.querySelectorAll('.contact-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    // Ripple effect on click
+    btn.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+      btn.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+
+      // Open modal
       const platform = btn.dataset.platform;
       const type = btn.dataset.type;
       modalPlatform.textContent = platform;
@@ -213,11 +334,11 @@
     if (e.key === 'Escape') closeModal();
   });
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
+  // ── Scroll reveal ──
+  const revealObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal, .btn-stagger').forEach(el => revealObs.observe(el));
 </script>
 </body>
 </html>
