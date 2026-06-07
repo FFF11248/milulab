@@ -52,69 +52,14 @@
 
 
   /* ── Dropdown menu system ── */
-  .nav-item {
-    position: relative;
-    padding: 12px 0;
-  }
+  /* ── Nav links ── */
   .nav-item > a {
     text-decoration: none; color: var(--text-dim); font-size: 14px;
     font-weight: 380; letter-spacing: 0.05em;
     transition: color 0.3s;
-    padding: 8px 0;
     cursor: pointer;
   }
-  .nav-item:hover > a { color: var(--text-bright); }
-
-  /* ── Dropdown panel ── */
-  .dropdown {
-    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(12px);
-    background: #141413; border: 1px solid var(--line);
-    padding: 16px 0; min-width: 170px;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1),
-                transform 0.35s cubic-bezier(0.16,1,0.3,1);
-    z-index: 99;
-    border-radius: 4px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  .nav-item:hover .dropdown {
-    opacity: 1; pointer-events: auto;
-    transform: translateX(-50%) translateY(8px);
-  }
-
-  /* ── Staggered item reveal ── */
-  .dropdown a {
-    display: block; padding: 9px 28px;
-    font-size: 14px; color: var(--text-dim); text-decoration: none;
-    white-space: nowrap; letter-spacing: 0.03em;
-    opacity: 0; transform: translateX(-10px);
-    transition: color 0.2s, background 0.2s, opacity 0.35s cubic-bezier(0.16,1,0.3,1),
-                transform 0.35s cubic-bezier(0.16,1,0.3,1);
-  }
-  .nav-item:hover .dropdown a {
-    opacity: 1; transform: translateX(0);
-  }
-  .nav-item:hover .dropdown a:nth-child(1) { transition-delay: 0.04s; }
-  .nav-item:hover .dropdown a:nth-child(2) { transition-delay: 0.1s; }
-  .nav-item:hover .dropdown a:nth-child(3) { transition-delay: 0.16s; }
-  .nav-item:hover .dropdown a:nth-child(4) { transition-delay: 0.22s; }
-  .dropdown a:hover { color: var(--text-bright); background: rgba(255,255,255,0.04); }
-
-  /* ── Dropdown indicator arrow ── */
-  .nav-item > a::after {
-    content: '';
-    display: inline-block; width: 5px; height: 5px;
-    border-right: 1.5px solid var(--text-dim);
-    border-bottom: 1.5px solid var(--text-dim);
-    transform: rotate(45deg) translateY(-1.5px);
-    margin-left: 7px; vertical-align: middle;
-    transition: border-color 0.3s, transform 0.3s cubic-bezier(0.3,0.85,0.3,1);
-  }
-  .nav-item:hover > a::after {
-    border-color: var(--text-bright);
-    transform: rotate(-135deg) translateY(-2px);
-  }
+  .nav-item > a:hover { color: var(--text-bright); }
 
   /* ── Sections ── */
   .section { max-width: 1400px; margin: 0 auto; padding: 0 56px; }
@@ -287,28 +232,10 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">麋鹿</a>
     <div class="nav-links">
-      <div class="nav-item">
-        <a>作品</a>
-        <div class="dropdown">
-          <a href="#work">精选作品</a>
-          <a href="plugins.html">人像</a>
-          <a href="plugins.html">风光</a>
-          <a href="plugins.html">城市</a>
-        </div>
-      </div>
-      <div class="nav-item">
-        <a>插件</a>
-        <div class="dropdown">
-          <a href="download.html?p=quickaiedit" target="_blank">QuickAIEdit</a>
-          <a href="download.html?p=watermark" target="_blank">批量水印工具</a>
-        </div>
-      </div>
-      <div class="nav-item">
-        <a href="#about" style="cursor:pointer">关于</a>
-      </div>
-      <div class="nav-item">
-        <a href="#contact" style="cursor:pointer">联系</a>
-      </div>
+      <span class="nav-item"><a href="#work">作品</a></span>
+      <span class="nav-item"><a href="plugins.html">插件</a></span>
+      <span class="nav-item"><a href="#about">关于</a></span>
+      <span class="nav-item"><a href="#contact">联系</a></span>
     </div>
   </div>
 </nav>
